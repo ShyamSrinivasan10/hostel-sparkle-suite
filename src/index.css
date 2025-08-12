@@ -2,9 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here.
+All colors MUST be HSL. */
 
 @layer base {
   :root {
@@ -39,19 +38,12 @@ All colors MUST be HSL.
     --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
@@ -94,6 +86,8 @@ All colors MUST be HSL.
   }
 }
 
+/* ... keep existing code (base tokens above) */
+
 @layer base {
   * {
     @apply border-border;
@@ -102,4 +96,49 @@ All colors MUST be HSL.
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Enhanced design tokens */
+@layer base {
+  :root {
+    --brand: 258 85% 60%; /* indigo-violet */
+    --brand-2: 286 72% 58%; /* purple */
+    --primary-glow: 258 85% 65%;
+
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(var(--brand)), hsl(var(--brand-2)));
+    --gradient-subtle: linear-gradient(180deg, hsl(var(--background)), hsl(var(--card)));
+
+    /* Shadows */
+    --shadow-elevated: 0 12px 30px -10px hsl(var(--brand) / 0.25);
+    --shadow-glow: 0 0 40px hsl(var(--brand-2) / 0.35);
+
+    /* Motion */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dark {
+    --primary-glow: 258 85% 70%;
+    --shadow-elevated: 0 12px 30px -10px hsl(var(--brand) / 0.35);
+    --shadow-glow: 0 0 48px hsl(var(--brand-2) / 0.45);
+  }
+}
+
+/* Utilities powered by tokens */
+@layer utilities {
+  .bg-gradient-hero { background-image: var(--gradient-hero); }
+  .animated-gradient {
+    background-size: 200% 200%;
+    animation: gradient-move 8s ease infinite;
+  }
+  .glass-card {
+    @apply bg-card/80 backdrop-blur supports-[backdrop-filter]:bg-card/70 border;
+    box-shadow: var(--shadow-elevated);
+  }
+}
+
+@keyframes gradient-move {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
